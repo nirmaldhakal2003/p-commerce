@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P-Commerce | Simple E-Commerce</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="logo" onclick="showPage('landing')" style="cursor: pointer">
+        P<span>-Commerce</span>
+      </div>
+      <div class="nav-links">
+        <a
+          href="#"
+          onclick="
+            showPage('landing');
+            return false;
+          "
+          ><i class="fas fa-home"></i> Home</a
+        >
+        <a
+          href="#"
+          onclick="
+            showPage('explore');
+            return false;
+          "
+          ><i class="fas fa-compass"></i> Explore</a
+        >
+        <a
+          href="#"
+          onclick="
+            showPage('cart');
+            return false;
+          "
+        >
+          <i class="fas fa-shopping-cart"></i> Cart
+          <span id="cartCountBadge" class="cart-badge">0</span>
+        </a>
+        <a
+          href="#"
+          onclick="
+            showPage('admin');
+            return false;
+          "
+          ><i class="fas fa-cog"></i> Admin</a
+        >
+      </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+      <!-- LANDING PAGE -->
+      <section id="landingPage" class="page active">
+        <div class="hero">
+          <div class="hero-text">
+            <h1>
+              Welcome to <span>P-Commerce</span><br />Shop smart, live better.
+            </h1>
+            <p>
+              Discover amazing products at unbeatable prices. Fast, simple, and
+              secure – just for you.
+            </p>
+            <button class="btn" onclick="showPage('explore')">
+              Start Shopping <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div class="hero-image">
+            <img src="https://picsum.photos/400/300?random=1" alt="Shopping" />
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature-card">
+            <i class="fas fa-truck-fast"></i>
+            <h3>Free Shipping</h3>
+            <p>On all orders over $50</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-rotate-left"></i>
+            <h3>Easy Returns</h3>
+            <p>30-day return policy</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-lock"></i>
+            <h3>Secure Payment</h3>
+            <p>Dummy PayPal checkout</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPLORE PAGE -->
+      <section id="explorePage" class="page">
+        <div class="section-title">
+          <i class="fas fa-compass"></i> Explore Products
+        </div>
+        <div id="exploreProductGrid" class="product-grid"></div>
+      </section>
+
+      <!-- CART PAGE -->
+      <section id="cartPage" class="page">
+        <div class="section-title">
+          <i class="fas fa-shopping-cart"></i> Your Cart
+        </div>
+        <div id="cartContent"></div>
+        <div id="cartSummary" class="cart-summary hidden">
+          <div>
+            <div style="font-weight: 500; color: #475569">Total amount</div>
+            <div class="cart-total" id="cartTotalPrice">$0.00</div>
+          </div>
+          <button class="btn" onclick="showPage('payment')">
+            Proceed to Payment <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- PAYMENT PAGE -->
+      <section id="paymentPage" class="page">
+        <div class="payment-box">
+          <i
+            class="fas fa-credit-card"
+            style="font-size: 3rem; color: #2563eb; margin-bottom: 1rem"
+          ></i>
+          <h2>Pay with PayPal (dummy)</h2>
+          <p style="color: #64748b">Secure checkout simulation</p>
+          <div class="payment-amount" id="paymentAmount">$0.00</div>
+          <div class="dummy-paypal">
+            <i
+              class="fab fa-paypal"
+              style="font-size: 2rem; color: #003087"
+            ></i>
+            <p style="margin-top: 10px; font-weight: 500">
+              Click "Pay Now" to simulate payment
+            </p>
+          </div>
+          <button
+            class="btn"
+            id="payNowBtn"
+            style="width: 100%; justify-content: center"
+            onclick="processPayment()"
+          >
+            <i class="fab fa-paypal"></i> Pay Now
+          </button>
+          <div id="paymentSuccessMsg" class="success-message hidden">
+            <i class="fas fa-check-circle"></i> Payment successful! (dummy)
+          </div>
+          <button
+            class="btn-outline btn mt-2"
+            style="width: 100%; justify-content: center"
+            onclick="showPage('explore')"
+          >
+            Continue Shopping
+          </button>
+        </div>
+      </section>
+
+      <!-- ADMIN PAGE -->
+      <section id="adminPage" class="page">
+        <div class="section-title"><i class="fas fa-cog"></i> Admin Panel</div>
+        <div class="admin-form">
+          <div class="form-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              id="adminProductName"
+              placeholder="e.g. Wireless Headphones"
+            />
+          </div>
+          <div class="form-group">
+            <label>Price ($)</label>
+            <input
+              type="number"
+              id="adminProductPrice"
+              placeholder="99.99"
+              step="0.01"
+              min="0"
+            />
+          </div>
+          <div class="form-group">
+            <label>Image URL (random if empty)</label>
+            <input type="text" id="adminProductImg" placeholder="https://..." />
+          </div>
+          <button class="btn" onclick="addProductFromAdmin()">
+            <i class="fas fa-plus"></i> Add Product
+          </button>
+        </div>
+
+        <div class="section-title" style="font-size: 1.4rem">
+          <i class="fas fa-box"></i> Manage Products
+        </div>
+        <div id="adminProductGrid" class="product-grid"></div>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        © 2026 P-Commerce – Demo project. All prices and payments are simulated.
+      </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
